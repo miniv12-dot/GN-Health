@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Health System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #0077be;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+        }
+        h1, h2 {
+            color: #0077be;
+            text-align: center;
+        }
+        .greeting {
+            color: #555;
+            font-size: 1.2rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        main {
+            padding: 2rem;
+            max-width: 800px;
+            margin: 2rem auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        section {
+            margin-bottom: 2rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #0077be;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f1f9ff;
+        }
+        .button {
+            background-color: #0077be;
+            color: white;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0.5rem 0;
+        }
+        .button:hover {
+            background-color: #005f99;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 1rem;
+        }
+        footer {
+            background-color: #0077be;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Health System Dashboard</h1>
+</header>
+
+<div class="greeting">
+    <p>Welcome, {{ user.username }}! We're glad to see you.</p>
+</div>
+
+<main>
+    <section>
+        <h2>Upcoming Appointments</h2>
+        {% if appointments %}
+        <table border="1">
+            <tr>
+                <th>Provider</th>
+                <th>Type</th>
+                <th>Date</th>
+                <th>Time</th>
+            </tr>
+            {% for appointment, provider_name in appointments %}
+                <tr>
+                    <td>{{ provider_name }}</td>
+                    <td>{{ appointment.appointment_type }}</td>
+                    <td>{{ appointment.appointment_date }}</td>
+                    <td>{{ appointment.appointment_time }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No appointments found.</p>
+    {% endif %}
+    </section>
+
+    <section>
+        <h2>Actions</h2>
+        <ul>
+            <li><a href="{{ url_for('book_appointment') }}" class="button">Book a New Appointment</a></li>
+            <li><a href="{{ url_for('my_appointments') }}" class="button">View Past Appointments</a></li>
+            <li><a href="{{ url_for('logout') }}" class="button">Log Out</a></li>
+        </ul>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2024 Health System. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

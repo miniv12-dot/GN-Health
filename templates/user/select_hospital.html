@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <title>Hospital Map</title>
+    <style>
+        #map { height: 400px; }
+    </style>
+</head>
+<body>
+    <h1>Select a Hospital</h1>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        var map = L.map('map').setView([-34.0, 18.0], 10);  // Set initial view
+
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+
+        // Example hospital data (replace with dynamic data)
+        var hospitals = [
+            {name: 'Hospital 1', lat: -34.0, lng: 18.0},
+            {name: 'Hospital 2', lat: -34.1, lng: 18.1},
+        ];
+
+        // Add markers for each hospital
+        hospitals.forEach(function(hospital) {
+            L.marker([hospital.lat, hospital.lng]).addTo(map)
+                .bindPopup(hospital.name);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment - Health System</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f0f8ff; margin: 0; padding: 0; }
+        header { background-color: #0077be; color: white; text-align: center; padding: 1.5rem; }
+        main { padding: 2rem; max-width: 400px; margin: 2rem auto; background-color: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
+        h2 { color: #0077be; text-align: center; }
+        form { display: flex; flex-direction: column; gap: 1rem; }
+        label { font-weight: bold; color: #333; }
+        input, select, textarea { padding: 10px; font-size: 1rem; border: 1px solid #ddd; border-radius: 5px; width: 100%; }
+        .button { background-color: #0077be; color: white; padding: 10px; border: none; border-radius: 5px; font-size: 1rem; cursor: pointer; transition: background 0.3s; }
+        .button:hover { background-color: #005f99; }
+        footer { background-color: #0077be; color: white; text-align: center; padding: 1rem; margin-top: 2rem; width: 100%; position: fixed; bottom: 0; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Health System</h1>
+</header>
+
+<main>
+    <h2>Book an Appointment</h2>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.provider_id.label }}<br>
+            {{ form.provider_id() }}
+        </p>
+        <p>
+            {{ form.appointment_type.label }}<br>
+            {{ form.appointment_type }}<br>
+            {% for error in form.appointment_type.errors %}
+                <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.appointment_desc.label }}<br>
+            {{ form.appointment_desc(rows=4, cols=40) }}
+        </p>
+        <p>
+            {{ form.appointment_date.label }}<br>
+            {{ form.appointment_date() }}<br>
+            {% for error in form.appointment_date.errors %}
+                <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.appointment_time.label }}<br>
+            {{ form.appointment_time() }}<br>
+            {% for error in form.appointment_time.errors %}
+                <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+    <p><a href="{{ url_for('user_dashboard') }}">Back to Dashboard</a></p>
+</main>
+
+<footer>
+    <p>&copy; 2024 Health System. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings - Health System</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f0f8ff; margin: 0; padding: 0; }
+        header { background-color: #0077be; color: white; text-align: center; padding: 1.5rem; }
+        main { padding: 2rem; max-width: 800px; margin: 2rem auto; background-color: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; table-layout: fixed; }
+        th, td { padding: 0.75rem; text-align: left; border: 1px solid #ddd; width: 25%; } /* Ensures equal column width */
+        th { background-color: #0077be; color: white; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+        footer { background-color: #0077be; color: white; text-align: center; padding: 1rem; margin-top: 2rem; }
+        .button { background-color: #0077be; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; }
+        .button:hover { background-color: #005f99; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>My Bookings</h1>
+</header>
+
+<main>
+    <h2>Appointments</h2>
+    {% if appointments %}
+        <table border="1">
+            <tr>
+                <th>Patient</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            {% for appointment, patient_name in appointments %}
+                <tr>
+                    <td>{{ patient_name }}</td>
+                    <td>{{ appointment.appointment_type }}</td>
+                    <td>{{ appointment.appointment_desc }}</td>
+                    <td>{{ appointment.appointment_date }}</td>
+                    <td>{{ appointment.appointment_time }}</td>
+                    <td>{{ appointment.appointment_status }}</td>
+                    <td>
+                        <form method="POST" action="{{ url_for('update_appointment_status', appointment_id=appointment.id) }}">
+                            {{ form.hidden_tag() }}
+                            {{ form.status.label }}
+                            {{ form.status }}
+                            {{ form.submit }}
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No appointments found.</p>
+    {% endif %}
+</main>
+
+<footer>
+    <p>&copy; 2024 Health System. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
